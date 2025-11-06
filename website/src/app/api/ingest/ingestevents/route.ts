@@ -79,3 +79,7 @@ export async function ingestEvents(payload: IngestRequest): Promise<IngestRespon
     throw categorizedError;
   }
 }
+
+// Minimal route handlers to satisfy Next.js route type validation for helper modules.
+export const GET = async () => new Response(JSON.stringify({ error: 'not-implemented' }), { status: 501 });
+export const POST = async () => new Response(JSON.stringify({ error: 'not-implemented' }), { status: 501 });

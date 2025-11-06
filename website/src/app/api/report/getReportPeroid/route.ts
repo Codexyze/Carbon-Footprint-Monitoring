@@ -105,3 +105,7 @@ function isValidDateString(dateString: string): boolean {
   const date = new Date(dateString);
   return !isNaN(date.getTime());
 }
+
+// Minimal route handlers to satisfy Next.js route type validation for helper modules.
+export const GET = async () => new Response(JSON.stringify({ error: 'not-implemented' }), { status: 501 });
+export const POST = async () => new Response(JSON.stringify({ error: 'not-implemented' }), { status: 501 });
