@@ -34,9 +34,13 @@ import dagger.hilt.components.SingletonComponent
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logger
+import io.ktor.client.plugins.logging.Logging
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import javax.inject.Singleton
+import com.nutrino.carbonfootprint.data.logs.debugLogs
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -54,8 +58,16 @@ object DiModule {
                 })
             }
 
-
+            install(Logging) {
+                logger = object : Logger {
+                    override fun log(message: String) {
+                        debugLogs(message, "Ktor")
+                    }
+                }
+                level = LogLevel.ALL
+            }
         }
+        debugLogs("HttpClient initialized with logging configuration", "DiModule")
         return client
     }
 
@@ -71,10 +83,11 @@ object DiModule {
     }
 
     @Provides
-    fun provideAutjRepo(userPrefrence: UserPrefrence, httpClient: HttpClient): AuthRepository{
+    fun provideAutjRepo(userPrefrence: UserPrefrence, httpClient: HttpClient, userRepository: UserRepository): AuthRepository{
         return AuthRepositoryImpl(
             userPrefrence = userPrefrence,
-            httpClient = httpClient
+            httpClient = httpClient,
+            userRepository = userRepository
         )
     }
 

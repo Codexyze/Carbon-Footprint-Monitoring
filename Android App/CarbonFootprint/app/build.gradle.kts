@@ -81,6 +81,7 @@ dependencies {
     implementation("io.ktor:ktor-client-cio:3.3.0")  // For making network requests
     implementation("io.ktor:ktor-client-content-negotiation:3.3.0") // For automatic JSON serialization
     implementation("io.ktor:ktor-serialization-kotlinx-json:3.3.0") // Kotlinx serialization support
+    implementation("io.ktor:ktor-client-logging:3.3.0") // Ktor logging support
     implementation("org.slf4j:slf4j-simple:2.0.17") // or latest
 
     //Data Preferences

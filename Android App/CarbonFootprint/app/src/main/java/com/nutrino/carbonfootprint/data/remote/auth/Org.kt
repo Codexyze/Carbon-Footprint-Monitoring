@@ -1,16 +1,15 @@
 package com.nutrino.carbonfootprint.data.remote.auth
 
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class GetMeResponse(
-    @SerialName("email")
-    val email: String = "",
+data class Org(
     @SerialName("id")
     val id: Int = 0,
-    @SerialName("org")
-    val org: Org = Org(),
-    @SerialName("role")
-    val role: String = ""
+    @SerialName("name")
+    val name: String = "",
+    @SerialName("plan")
+    val plan: String = ""
 )

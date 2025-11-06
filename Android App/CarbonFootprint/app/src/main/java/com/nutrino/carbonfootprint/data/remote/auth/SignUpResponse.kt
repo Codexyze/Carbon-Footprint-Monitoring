@@ -5,8 +5,10 @@ import kotlinx.serialization.SerialName
 
 @Serializable
 data class SignUpResponse(
+    @SerialName("user_id")
+    val userId: Int,
     @SerialName("access_token")
-    val accessToken: String = "",
+    val accessToken: String? = null,
     @SerialName("token_type")
-    val tokenType: String = ""
+    val tokenType: String? = null
 )
