@@ -1,5 +1,7 @@
 from __future__ import annotations
-
+from dotenv import load_dotenv
+import os
+load_dotenv()
 from datetime import datetime
 from typing import Annotated, Literal, Optional
 
@@ -15,8 +17,7 @@ from app.services.analytics.queries import kpis as kpis_query, last_event_time
 from app.utils.time import parse_dt
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
-from dotenv import load_dotenv
-load_dotenv()
+
 
 router = APIRouter(prefix="/v1/analytics", tags=["analytics"])
 
