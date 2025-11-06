@@ -44,12 +44,7 @@ class UserPrefrence @Inject constructor(private val context: Context) {
 
     // Check if user is logged in (userId exists)
     suspend fun isLoggedIn(): Boolean {
-        var hasUserId = false
-        context.dataStore.data.collect { preferences ->
-            val userId = preferences[user_id_key]
-            hasUserId = userId != null
-            return@collect
-        }
-        return hasUserId
+        val userId = context.dataStore.data.first()[user_id_key]
+        return userId != null
     }
 }
