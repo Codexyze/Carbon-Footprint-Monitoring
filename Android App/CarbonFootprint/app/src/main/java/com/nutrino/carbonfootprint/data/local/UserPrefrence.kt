@@ -2,7 +2,7 @@ package com.nutrino.carbonfootprint.data.local
 
 import android.content.Context
 import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -12,39 +12,36 @@ private val Context.dataStore by preferencesDataStore("user_session_store")
 
 class UserPrefrence @Inject constructor(private val context: Context) {
 
-    private val access_token = stringPreferencesKey("access_token")
+    private val user_id_key = intPreferencesKey("user_id")
 
-    val accessToken: Flow<String?> = context.dataStore.data.map {
-        it[access_token]
+    val userId: Flow<Int?> = context.dataStore.data.map {
+        it[user_id_key]
     }
 
-    // Legacy support for existing code
-    val acessToken: Flow<String?> = accessToken
-
-    suspend fun updateAccessToken(token: String) {
+    suspend fun updateUserId(userId: Int) {
         context.dataStore.edit {
-            it[access_token] = token
+            it[user_id_key] = userId
         }
     }
 
-    suspend fun clearToken() {
+    suspend fun clearUserId() {
         context.dataStore.edit {
-            it.remove(access_token)
+            it.remove(user_id_key)
         }
     }
 
     suspend fun clearSession() {
-        clearToken()
+        clearUserId()
     }
 
-    // Check if user is logged in (token exists and not empty)
+    // Check if user is logged in (userId exists)
     suspend fun isLoggedIn(): Boolean {
-        var hasToken = false
+        var hasUserId = false
         context.dataStore.data.collect { preferences ->
-            val token = preferences[access_token]
-            hasToken = !token.isNullOrEmpty()
+            val userId = preferences[user_id_key]
+            hasUserId = userId != null
             return@collect
         }
-        return hasToken
+        return hasUserId
     }
 }

@@ -34,8 +34,8 @@ class AuthRepositoryImpl @Inject constructor(
 
             if (httpResponse.status.isSuccess()) {
                 val response = httpResponse.body<SignUpResponse>()
-                // Store access token from the response
-                userPrefrence.updateAccessToken(response.accessToken)
+                // Store user_id from the response
+                userPrefrence.updateUserId(response.userId)
                 emit(ResultState.Success(response))
             } else {
                 val errorBody = try {
@@ -69,8 +69,8 @@ class AuthRepositoryImpl @Inject constructor(
 
             if (httpResponse.status.isSuccess()) {
                 val response = httpResponse.body<SignInResponse>()
-                // Store access token from the response
-                userPrefrence.updateAccessToken(response.accessToken)
+                // Store user_id from the response
+                userPrefrence.updateUserId(response.userId)
                 emit(ResultState.Success(response))
             } else {
                 val errorBody = try {
