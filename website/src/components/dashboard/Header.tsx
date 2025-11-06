@@ -1,15 +1,14 @@
 'use client';
 
-import { Sun, Moon, LogOut, User } from 'lucide-react';
+import { LogOut, User } from 'lucide-react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
+import { useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { logout } from '@/lib/auth/authSlice';
 
 export default function DashboardHeader() {
   const [activeTab, setActiveTab] = useState('Dashboard');
-  const [isDarkMode, setIsDarkMode] = useState(true);
   const [showUserMenu, setShowUserMenu] = useState(false);
 
   const dispatch = useAppDispatch();
@@ -46,6 +45,45 @@ export default function DashboardHeader() {
     }
   };
 
+  // Highlight active tab based on current pathname so navigation reflects the open page
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (!pathname) return;
+    const p = pathname.toLowerCase();
+    // Map pathname to tab labels
+    if (p === '/' || p.startsWith('/dashboard')) {
+      setActiveTab('Dashboard');
+      return;
+    }
+    if (p.startsWith('/tenants/facilities') || p.startsWith('/facilities')) {
+      setActiveTab('Facilities');
+      return;
+    }
+    if (p.startsWith('/tenants/users') || p.startsWith('/admin/users') || p.startsWith('/user') || p.startsWith('/users')) {
+      setActiveTab('Users');
+      return;
+    }
+    if (p.startsWith('/factors')) {
+      setActiveTab('Factors');
+      return;
+    }
+    if (p.startsWith('/ingest')) {
+      setActiveTab('Ingest');
+      return;
+    }
+    if (p.startsWith('/analytics')) {
+      setActiveTab('Analytics');
+      return;
+    }
+    if (p.startsWith('/reports') || p.startsWith('/report')) {
+      setActiveTab('Reports');
+      return;
+    }
+    // default
+    setActiveTab('Dashboard');
+  }, [pathname, user?.role]);
+
   return (
     <header className="border-b border-gray-800 bg-gray-900/50 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-6">
@@ -77,18 +115,6 @@ export default function DashboardHeader() {
 
           {/* Right Section */}
           <div className="flex items-center gap-4">
-            {/* Theme Toggle */}
-            <button
-              onClick={() => setIsDarkMode(!isDarkMode)}
-              className="p-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors text-gray-300"
-            >
-              {isDarkMode ? (
-                <Sun className="w-5 h-5" />
-              ) : (
-                <Moon className="w-5 h-5" />
-              )}
-            </button>
-
             {/* User Menu */}
             <div className="relative">
               <button 
