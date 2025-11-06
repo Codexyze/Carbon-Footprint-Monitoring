@@ -18,6 +18,14 @@ class UserPrefrence @Inject constructor(private val context: Context) {
         it[user_id_key]
     }
 
+    // Backward compatibility - deprecated, do not use
+    @Deprecated("Authentication now uses userId instead of tokens", ReplaceWith("userId"))
+    val accessToken: Flow<String?> = kotlinx.coroutines.flow.flowOf(null)
+    
+    // Legacy typo support - deprecated, do not use  
+    @Deprecated("Authentication now uses userId instead of tokens", ReplaceWith("userId"))
+    val acessToken: Flow<String?> = kotlinx.coroutines.flow.flowOf(null)
+
     suspend fun updateUserId(userId: Int) {
         context.dataStore.edit {
             it[user_id_key] = userId
