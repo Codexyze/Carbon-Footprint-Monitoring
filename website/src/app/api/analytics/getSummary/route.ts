@@ -42,3 +42,8 @@ export async function getSummary(): Promise<SummaryResponse> {
     throw categorizedError;
   }
 }
+
+// Minimal route handlers to satisfy Next.js route type validation.
+// These modules are helper libraries and not intended to be used as API routes.
+export const GET = async () => new Response(JSON.stringify({ error: 'not-implemented' }), { status: 501 });
+export const POST = async () => new Response(JSON.stringify({ error: 'not-implemented' }), { status: 501 });

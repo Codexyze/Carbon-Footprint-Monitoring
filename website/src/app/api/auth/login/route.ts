@@ -73,3 +73,7 @@ export async function loginApi(credentials: { email: string; password: string })
         throw categorizedError;
     }
 }
+
+// Minimal route handlers to satisfy Next.js route type validation for helper modules.
+export const GET = async () => new Response(JSON.stringify({ error: 'not-implemented' }), { status: 501 });
+export const POST = async () => new Response(JSON.stringify({ error: 'not-implemented' }), { status: 501 });
