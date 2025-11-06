@@ -121,7 +121,7 @@ def summary(id: int = Query(..., description="Organization ID"), db: Session = D
     return summary_dict
 
 
-@router.get("/suggestion")
+@router.get("/suggestions")
 def suggestion(id: int = Query(..., description="Organization ID"), db: Session = Depends(get_db), user: Annotated[User, Depends(require_role("viewer", "analyst", "admin"))] = None):
     """Combine all data from all tables for a given organization ID into one comprehensive dictionary."""
     org_id = id

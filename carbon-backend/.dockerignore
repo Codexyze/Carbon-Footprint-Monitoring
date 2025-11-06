@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# VCS
+.git
+.gitignore
+
+# Byte-compiled / cache
+.pytest_cache/
+.mypy_cache/
+.pyre/
+
+# Env
+.env
+venv/
+.env.*
+
+# Data / artifacts
+alembic/versions/*
+**/.DS_Store
+
+# Docker
+Dockerfile*
+
+# Tests (not needed in runtime image)
+tests/
+
+# Build
+*.egg-info/
+*.egg
+build/
+dist/
+
