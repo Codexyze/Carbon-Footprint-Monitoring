@@ -76,18 +76,33 @@ fun SignInScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        // Title
-        Text(
-            text = "Welcome Back",
-            fontSize = 28.sp,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.padding(bottom = 32.dp)
-        )
+        // Title and subtitle
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.padding(bottom = 40.dp)
+        ) {
+            Text(
+                text = "🌱",
+                fontSize = 48.sp,
+                modifier = Modifier.padding(bottom = 16.dp)
+            )
+            Text(
+                text = "Welcome Back",
+                fontSize = 32.sp,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.primary
+            )
+            Text(
+                text = "Continue your sustainability journey",
+                fontSize = 16.sp,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
+                modifier = Modifier.padding(top = 8.dp)
+            )
+        }
 
         // Email Field
         OutlinedTextField(
@@ -150,7 +165,7 @@ fun SignInScreen(
             )
         }
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(32.dp))
 
         // Sign In Button
         Button(
@@ -183,7 +198,11 @@ fun SignInScreen(
             enabled = signInState !is SignInUIState.Loading,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(56.dp)
+                .height(56.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary
+            )
         ) {
             if (signInState is SignInUIState.Loading) {
                 CircularProgressIndicator(
@@ -192,14 +211,14 @@ fun SignInScreen(
                 )
             } else {
                 Text(
-                    text = "Sign In",
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Medium
+                    text = "🌿 Sign In",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
                 )
             }
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(24.dp))
 
         // Navigate to Sign Up
         Row(
@@ -208,13 +227,15 @@ fun SignInScreen(
         ) {
             Text(
                 text = "Don't have an account? ",
-                color = MaterialTheme.colorScheme.onSurface
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
+                fontSize = 16.sp
             )
             TextButton(onClick = onNavigateToSignUp) {
                 Text(
                     text = "Sign Up",
                     color = MaterialTheme.colorScheme.primary,
-                    fontWeight = FontWeight.Medium
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp
                 )
             }
         }

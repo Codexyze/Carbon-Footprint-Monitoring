@@ -81,18 +81,33 @@ fun SignUpScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        // Title
-        Text(
-            text = "Create Account",
-            fontSize = 28.sp,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.padding(bottom = 32.dp)
-        )
+        // Title and subtitle
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.padding(bottom = 40.dp)
+        ) {
+            Text(
+                text = "🌱",
+                fontSize = 48.sp,
+                modifier = Modifier.padding(bottom = 16.dp)
+            )
+            Text(
+                text = "Create Account",
+                fontSize = 32.sp,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.primary
+            )
+            Text(
+                text = "Start your sustainability journey today",
+                fontSize = 16.sp,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
+                modifier = Modifier.padding(top = 8.dp)
+            )
+        }
 
         // Email Field
         OutlinedTextField(
@@ -154,7 +169,7 @@ fun SignUpScreen(
                         imageVector = if (passwordVisible)
                             Icons.Default.Visibility
                         else
-                            androidx.compose.material.icons.Icons.Default.VisibilityOff,
+                            Icons.Default.VisibilityOff,
                         contentDescription = if (passwordVisible) "Hide password" else "Show password"
                     )
                 }
@@ -184,9 +199,9 @@ fun SignUpScreen(
                 IconButton(onClick = { confirmPasswordVisible = !confirmPasswordVisible }) {
                     Icon(
                         imageVector = if (confirmPasswordVisible)
-                            androidx.compose.material.icons.Icons.Default.Visibility
+                            Icons.Default.Visibility
                         else
-                            androidx.compose.material.icons.Icons.Default.VisibilityOff,
+                            Icons.Default.VisibilityOff,
                         contentDescription = if (confirmPasswordVisible) "Hide password" else "Show password"
                     )
                 }
@@ -206,7 +221,7 @@ fun SignUpScreen(
             )
         }
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(32.dp))
 
         // Sign Up Button
         Button(
@@ -256,7 +271,11 @@ fun SignUpScreen(
             enabled = signUpState !is SignUpUIState.Loading,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(56.dp)
+                .height(56.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary
+            )
         ) {
             if (signUpState is SignUpUIState.Loading) {
                 CircularProgressIndicator(
@@ -265,14 +284,14 @@ fun SignUpScreen(
                 )
             } else {
                 Text(
-                    text = "Sign Up",
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Medium
+                    text = "🌿 Create Account",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
                 )
             }
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(24.dp))
 
         // Navigate to Login
         Row(
@@ -281,13 +300,15 @@ fun SignUpScreen(
         ) {
             Text(
                 text = "Already have an account? ",
-                color = MaterialTheme.colorScheme.onSurface
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
+                fontSize = 16.sp
             )
             TextButton(onClick = onNavigateToLogin) {
                 Text(
                     text = "Sign In",
                     color = MaterialTheme.colorScheme.primary,
-                    fontWeight = FontWeight.Medium
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp
                 )
             }
         }

@@ -155,8 +155,9 @@ fun SuggestionScreen(
                         LazyColumn(
                             modifier = Modifier
                                 .fillMaxSize()
-                                .padding(16.dp),
-                            verticalArrangement = Arrangement.spacedBy(16.dp)
+                                .padding(horizontal = 16.dp),
+                            verticalArrangement = Arrangement.spacedBy(16.dp),
+                            contentPadding = PaddingValues(vertical = 16.dp)
                         ) {
                             item {
                                 Card(
@@ -164,30 +165,31 @@ fun SuggestionScreen(
                                     colors = CardDefaults.cardColors(
                                         containerColor = MaterialTheme.colorScheme.primaryContainer
                                     ),
-                                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+                                    elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                                    shape = RoundedCornerShape(16.dp)
                                 ) {
                                     Row(
-                                        modifier = Modifier.padding(16.dp),
-                                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                                        modifier = Modifier.padding(20.dp),
+                                        horizontalArrangement = Arrangement.spacedBy(16.dp),
                                         verticalAlignment = Alignment.CenterVertically
                                     ) {
                                         Icon(
                                             imageVector = Icons.Default.Lightbulb,
                                             contentDescription = "AI Insight",
-                                            modifier = Modifier.size(32.dp),
+                                            modifier = Modifier.size(40.dp),
                                             tint = MaterialTheme.colorScheme.primary
                                         )
                                         Column {
                                             Text(
-                                                text = "AI-Powered Insights",
+                                                text = "🌱 AI-Powered Insights",
                                                 fontWeight = FontWeight.Bold,
-                                                fontSize = 18.sp,
+                                                fontSize = 20.sp,
                                                 color = MaterialTheme.colorScheme.onPrimaryContainer
                                             )
                                             Text(
-                                                text = "Personalized recommendations for your organization",
-                                                fontSize = 12.sp,
-                                                color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
+                                                text = "Personalized sustainability recommendations",
+                                                fontSize = 14.sp,
+                                                color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f)
                                             )
                                         }
                                     }
@@ -197,15 +199,20 @@ fun SuggestionScreen(
                             item {
                                 Card(
                                     modifier = Modifier.fillMaxWidth(),
-                                    elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+                                    elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+                                    shape = RoundedCornerShape(16.dp),
+                                    colors = CardDefaults.cardColors(
+                                        containerColor = MaterialTheme.colorScheme.surface
+                                    )
                                 ) {
                                     Column(
-                                        modifier = Modifier.padding(16.dp)
+                                        modifier = Modifier.padding(20.dp)
                                     ) {
                                         Text(
                                             text = suggestion.message,
-                                            style = MaterialTheme.typography.bodyMedium,
-                                            lineHeight = 24.sp
+                                            style = MaterialTheme.typography.bodyLarge,
+                                            lineHeight = 26.sp,
+                                            color = MaterialTheme.colorScheme.onSurface
                                         )
                                     }
                                 }
@@ -216,25 +223,35 @@ fun SuggestionScreen(
                                     modifier = Modifier.fillMaxWidth(),
                                     colors = CardDefaults.cardColors(
                                         containerColor = MaterialTheme.colorScheme.secondaryContainer
-                                    )
+                                    ),
+                                    elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+                                    shape = RoundedCornerShape(16.dp)
                                 ) {
                                     Column(
-                                        modifier = Modifier.padding(16.dp),
-                                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                                        modifier = Modifier.padding(20.dp),
+                                        verticalArrangement = Arrangement.spacedBy(12.dp)
                                     ) {
                                         Text(
-                                            text = "💡 Quick Actions",
+                                            text = "🌿 Quick Actions",
                                             fontWeight = FontWeight.Bold,
-                                            fontSize = 16.sp,
+                                            fontSize = 18.sp,
                                             color = MaterialTheme.colorScheme.onSecondaryContainer
                                         )
-                                        Text(
-                                            text = "• Review your emissions data regularly\n• Set reduction targets\n• Track your progress monthly\n• Engage your team in sustainability efforts",
-                                            fontSize = 14.sp,
-                                            color = MaterialTheme.colorScheme.onSecondaryContainer
-                                        )
+                                        Column(
+                                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                                        ) {
+                                            ActionItem("📊 Review your emissions data regularly")
+                                            ActionItem("🎯 Set reduction targets")
+                                            ActionItem("📈 Track your progress monthly")
+                                            ActionItem("👥 Engage your team in sustainability efforts")
+                                        }
                                     }
                                 }
+                            }
+
+                            // Add bottom padding to ensure content is not cut off
+                            item {
+                                Spacer(modifier = Modifier.height(32.dp))
                             }
                         }
                     } ?: run {
@@ -291,6 +308,21 @@ fun SuggestionScreen(
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun ActionItem(text: String) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = text,
+            fontSize = 15.sp,
+            color = MaterialTheme.colorScheme.onSecondaryContainer,
+            modifier = Modifier.weight(1f)
+        )
     }
 }
 
